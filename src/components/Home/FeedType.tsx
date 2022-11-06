@@ -1,0 +1,36 @@
+import TabButton from '@components/UI/TabButton';
+import { SparklesIcon, ViewListIcon } from '@heroicons/react/outline';
+import type { Dispatch, FC } from 'react';
+
+import FeedEventFilters from './FeedEventFilters';
+
+interface Props {
+  setFeedType: Dispatch<'TIMELINE' | 'HIGHLIGHTS'>;
+  feedType: 'TIMELINE' | 'HIGHLIGHTS';
+}
+
+const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
+  return (
+    <div className="flex flex-wrap items-center md:px-0 px-1 justify-between">
+      <div className="flex overflow-x-auto gap-3 sm:px-0">
+        <TabButton
+          name="Timeline"
+          icon={<ViewListIcon className="w-4 h-4" />}
+          active={feedType === 'TIMELINE'}
+          showOnSm
+          onClick={() => setFeedType('TIMELINE')}
+        />
+        <TabButton
+          name="Highlights"
+          icon={<SparklesIcon className="w-4 h-4" />}
+          active={feedType === 'HIGHLIGHTS'}
+          showOnSm
+          onClick={() => setFeedType('HIGHLIGHTS')}
+        />
+      </div>
+      {feedType === 'TIMELINE' && <FeedEventFilters />}
+    </div>
+  );
+};
+
+export default FeedType;
